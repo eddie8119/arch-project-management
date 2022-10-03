@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-md-4 order-md-2 mb-4">
+    <!-- <div class="col-md-4 order-md-2 mb-4">
       <h4 class="d-flex justify-content-between align-items-center mb-3">
         <span class="text-muted">Your cart</span>
         <span class="badge badge-secondary badge-pill">3</span>
@@ -48,9 +48,9 @@
           </div>
         </div>
       </form>
-    </div>
+    </div> -->
     <div class="col-md-8 order-md-1">
-      <h4 class="mb-3">Billing address</h4>
+      <!-- <h4 class="mb-3">Billing address</h4> -->
       <form class="needs-validation" novalidate>
         <div class="row">
           <div class="col-md-12 mb-3">
@@ -133,13 +133,13 @@
             </div>
           </div>
         </div>
-        <div class="mb-3">
+        <!-- <div class="mb-3">
           <label for="email">名 <span class="text-muted">(Optional)</span></label>
           <input type="email" class="form-control" id="email">
           <div class="invalid-feedback">
             Please enter a valid email address for shipping updates.
           </div>
-        </div>
+        </div> -->
         <button @click="$router.back()" type="button" class="btn btn-link">返回上一頁</button>
         <button class="btn btn-primary" type="submit">確認儲存</button>
       </form>
