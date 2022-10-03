@@ -258,8 +258,8 @@
       this.project.engineerings.push({
         id: uuidv4(),
         type:this.input.type,
-        quoteTotal:Number(this.input.quote),
-        costTotal: this.input.cost 
+        quoteTotal: Number(this.input.quote),
+        costTotal: Number(this.input.cost)
       })
       //清空
       this.input.type ='',
