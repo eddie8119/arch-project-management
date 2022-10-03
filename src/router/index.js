@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
+// import { createRouter} from 'vue-router'
 import HomeView from '../views/ProjectsOverview.vue'
 
-const routes = [
+const routes = [  
   {
     path: '/',
     name: 'home',
@@ -37,6 +38,9 @@ const routes = [
 ]
 
 const router = createRouter({
+  // mode: "hash",
+  
+  mode: 'history',
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
