@@ -4,9 +4,9 @@
       <div v-for="project in CardArray" class="col-6 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-4 pb-3" :key="project.id">
           <div class="card">
             <img class="card-img-top" :src="project.img" alt="Card image cap">
-            <div class="overlay">
-              <button v-if ="!project.addedCart" type="button" class="btn btn-outline-secondary btn-lg" @click="addtoCart(project)">暫存</button>
-              <button v-else type="button" class="btn btn-secondary btn-lg" @click="removetoCart(project.id)">已存</button>
+            <div class="overlay mt-3">
+              <!-- <button v-if ="!project.addedCart" type="button" class="btn btn-outline-secondary btn-lg" @click="addtoCart(project)">暫存</button>
+              <button v-else type="button" class="btn btn-secondary btn-lg" @click="removetoCart(project.id)">已存</button> -->
               <router-link :to="{name:'engineerings', params: {id: project.id}}"><button type="button" class="btn btn-outline-secondary btn-lg">計價</button></router-link>
             </div>
             <div class="card-body">

@@ -104,7 +104,7 @@
       />
     </div>
 
-    <div class="form-group">
+    <!-- <div class="form-group">
       <label for="img">照片</label>
       <img
         v-if="project.img"
@@ -121,9 +121,9 @@
         class="form-control-file"
         @change="handleFileChange"
       >
-    </div>
+    </div> -->
 
-    <hr>
+    <hr class="mt-5">
 
     <button
       type="submit"
@@ -137,7 +137,7 @@
 <script>
 import {mapState} from 'vuex'
 import {mapMutations} from 'vuex'
-import { Toast } from '../utils/helpers';
+// import { Toast } from '../utils/helpers'
 
 export default {
   name:"ProjectForm",
@@ -166,7 +166,7 @@ export default {
           id:-1,
           title: '',
           addedCart:false,
-          img:require('@/assets/1.jpg'),
+          img:'',
           type: '',
           openingDate: '',
           completionDate: '', 
@@ -189,22 +189,27 @@ export default {
     handleSubmit(e){
       e.preventDefault()
       if (!this.project.title.trim()){
-        Toast.fire({
-          icon: 'warning',
-          title: '專案名稱'
-        })
+        // Toast.fire({
+        //   icon: 'warning',
+        //   title: '專案名稱'
+        // })
         return
       }
       this.projects.push({
         id:this.project.id,
-        title:this.project.title,
         addedCart:false,
         img:require('@/assets/1.jpg'),
+        title:this.project.title,
         type:this.project.type,
         openingDate:this.project.openingDate,
         completionDate:this.project.completionDate, 
         address:this.project.address,
         note:this.project.note,
+        projectQuote:0,
+        projectCost: 0,
+        projectProfit: 0,
+        projectProfitMargin: 0, 
+        engineerings:[],
       })
       this.$router.push('/')
     }
