@@ -128,8 +128,7 @@
     this.project = this.projects[id]
     this.test()
     this.calcProfitTotal()
-    this.calcProfitMarginTotal()
-    console.log(typeof(this.project.projectQuote))
+    this.calcProfitMarginTotal()   
     
     // this.engineerings = this.projects[id].engineerings
   },   
@@ -156,7 +155,7 @@
           sumcostTotal += engineering.costTotal
         )
         this.project.projectCost = sumcostTotal 
-        console.log(typeof(this.project.projectQuote))
+        
         //新增工總 淨利 毛利率觸發
         this.project.engineerings = this.calcProfitTotal()
         this.project.engineerings = this.calcProfitMarginTotal()
