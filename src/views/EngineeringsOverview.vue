@@ -96,7 +96,7 @@
       <tbody>
         <tr>
           <td>{{sumProjectQuote}}</td>
-          <td>{{project.projectCost}}</td>
+          <td>{{sumProjectCost}}</td>
           <td>{{sumGrossProfit}}</td>
           <td>{{sumGrossProfitMargin}}</td>
         </tr>
@@ -104,7 +104,6 @@
     </table>
   </div>
 </template>
-
 
 <script>  
   import {v4 as uuidv4} from 'uuid'
@@ -119,60 +118,69 @@
         type:'',
         quote:0,
         cost: 0,
-      }, 
-      // engineerings:[],        
+      },       
       searchInput:'',
       filterEngineers:[],
     };
   },
-  created() {    
+  created(){    
     const {id} = this.$route.params
     this.project = this.projects[id]
+    this.test()
+    this.calcProfitTotal()
+    this.calcProfitMarginTotal()
+    console.log(typeof(this.project.projectQuote))
+    
     // this.engineerings = this.projects[id].engineerings
-    // this.project.projectQuote = this.sumProjectQuote()
-    this.project.projectCost = this.sumProjectCost()
   },   
   // mounted:{
-  
+    
   // },
+  // updated:{
+  //   console.log(123)
+  //   // this.sumProjectQuote()
+  // },
+  watch:{
+    project:{
+      handler(){
+        //總計區的運算
+        this.project.projectQuote = 0
+        let sumquoteTotal = 0
+        this.project.engineerings.forEach( engineering => 
+          sumquoteTotal += engineering.quoteTotal
+        )  
+        this.project.projectQuote = sumquoteTotal
+
+        let sumcostTotal = 0
+        this.project.engineerings.forEach( engineering => 
+          sumcostTotal += engineering.costTotal
+        )
+        this.project.projectCost = sumcostTotal 
+        console.log(typeof(this.project.projectQuote))
+        //新增工總 淨利 毛利率觸發
+        this.project.engineerings = this.calcProfitTotal()
+        this.project.engineerings = this.calcProfitMarginTotal()
+    },   
+    deep: true
+    }
+  },
   computed: {    
     ...mapState(['projects','engineeringTypes']), 
 
-    sumProjectQuote(){  
-      let sum = 0
-      this.project.engineerings.forEach( engineering => 
-        sum += engineering.quoteTotal
-      )   
-      return sum   
-    },    
-    
-    sumGrossProfit(){  
-      return this.sumQuoteTotal-this.sumCostTotal
+    //總計區的運算
+    sumProjectQuote:{ 
+      get(){
+        let sum = 0
+        this.project.engineerings.forEach( engineering => 
+          sum += engineering.quoteTotal
+        )   
+        // this.project.projectQuote = sum   
+        return sum
+      },
+      // set(newVal){
+      //   this.project.projectQuote = newVal
+      // } 
     },
-    sumGrossProfitMargin(){  
-        let profitMargin = this.sumGrossProfit/this.sumQuoteTotal
-        return profitMargin.toFixed(2)
-    },
-    engineeringsShowMode(){
-      return this.filterEngineers.length === 0 ? this.project.engineerings : this.filterEngineers
-    },
-    //
-    calcProfitTotal(){
-      this.project.engineerings.forEach( 
-        engineering => engineering.profitTotal = engineering.quoteTotal-engineering.costTotal
-        )
-        return this.project.engineerings
-    },   
-    calcProfitMarginTotal(){
-      this.project.engineerings.forEach( 
-        engineering => engineering.profitMarginTotal =  (engineering.profitTotal/engineering.quoteTotal).toFixed(2)
-        )
-        return this.project.engineerings
-    },
-  }, 
-  methods:{ 
-    ...mapMutations(['removeProjectEngineering']),
- 
     sumProjectCost(){  
       let sum = 0
       this.project.engineerings.forEach( engineering => 
@@ -180,6 +188,38 @@
       )
       return sum
     },    
+    sumGrossProfit(){  
+      return this.sumProjectQuote-this.sumProjectCost
+    },
+    sumGrossProfitMargin(){         
+        return (this.sumGrossProfit/this.sumProjectCost).toFixed(2)
+    },
+
+    engineeringsShowMode(){
+      return this.filterEngineers.length === 0 ? this.project.engineerings : this.filterEngineers
+    },
+
+  }, 
+  methods:{ 
+    ...mapMutations(['removeProjectEngineering']),
+
+    test(){
+    
+    },
+    //單獨工總計算區
+    calcProfitTotal(){
+      this.project.engineerings.forEach( 
+        engineering => engineering.profitTotal = engineering.quoteTotal-engineering.costTotal
+      )
+      return this.project.engineerings
+    },
+    calcProfitMarginTotal(){
+      this.project.engineerings.forEach( 
+        engineering => engineering.profitMarginTotal =  (engineering.profitTotal/engineering.quoteTotal).toFixed(2)
+      )
+      return this.project.engineerings
+    },
+
     serchEngineer(e){
       e.preventDefault()
       const keywords = this.searchInput.trim()
@@ -218,7 +258,7 @@
       this.project.engineerings.push({
         id: uuidv4(),
         type:this.input.type,
-        quoteTotal:this.input.quote,
+        quoteTotal:Number(this.input.quote),
         costTotal: this.input.cost 
       })
       //清空

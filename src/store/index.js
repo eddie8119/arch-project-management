@@ -453,6 +453,15 @@ export default createStore({
         return state.infoPage.splice(0, 1)
       }
     },
+    // projectQuoteCalc(state){
+       
+    //    let arry = state.projects.map(
+    //     project=> project.engineerings
+    //   )
+    //   console.log(arry)
+    //   return 
+    // }
+
     // setProjectQuote(state){
     //   let sum =0
     //   state.projects.forEach(        

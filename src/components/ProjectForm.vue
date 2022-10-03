@@ -199,7 +199,7 @@ export default {
         id:this.project.id,
         title:this.project.title,
         addedCart:false,
-        img:this.project.img,
+        img:require('@/assets/1.jpg'),
         type:this.project.type,
         openingDate:this.project.openingDate,
         completionDate:this.project.completionDate, 

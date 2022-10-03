@@ -127,7 +127,7 @@
   export default {
     name: 'eachFactoryTodo',
     // mixins:[enteTwoDecimalFilter],  
-    data() {
+    data(){
       return {        
         input: {        
           title:'',
@@ -163,14 +163,14 @@
     methods: {
       findtodo(){
         let engineeringsArry = []      
-        this.projects.forEach(
+        this.projects.map(
           project => engineeringsArry.push(project.engineerings)
         )
         // console.log(engineeringsArry)
-        engineeringsArry.forEach(
-          engineering => console.log(engineering) 
+        let a = engineeringsArry.map(
+          engineering => engineering
         )
-        
+        console.log({...a}[0])
         // console.log(engineeringsArry)
         // this.engineering = engineeringsArry.filter(
         //   engineering => engineering.id === engineeringID

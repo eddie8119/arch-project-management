@@ -6,7 +6,7 @@
     </div>
     <router-link
       to="/projects/new"
-      class="btn btn-primary mb-4"
+      class="btn btn-secondary mb-4"
     >
       建立專案
     </router-link>
@@ -40,10 +40,10 @@
                 <h6 @click="sortI('店面')">店面規劃</h6>
                 <h6 @click="sortI('辦公室')">辦公室規劃</h6>
                 <br><br><br>
-                <h4 class="search-title">快速篩選</h4>
+                <!-- <h4 class="search-title">快速篩選</h4>
                 <br>
                 <h5>總價範圍</h5>
-                <Slider @clicked="valueSlider"/>
+                <Slider @clicked="valueSlider"/> -->
               </div>
             </div>
           </div>
@@ -51,7 +51,7 @@
         <div class="row col-xl-9 col-lg-9 col-md-12 col-sm-12 col-xs-12 text-center">
           <div v-if="this.cards == 0" class="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <h4 style="margin-left:9rem;margin-right:9rem">
-              無搜尋內容</h4>
+              目前沒有相關專案內容</h4>
           </div>
             <Card v-if="findKeyCards.length !==0" :CardArray="findKeyCards" />
             <Card v-else :CardArray="slicedCards" />
@@ -65,13 +65,13 @@
 </template>
 
 <script>
-import Slider from '../components/ProjectsPage/SlideR.vue'
+// import Slider from '../components/ProjectsPage/SlideR.vue'
 import Card from '../components/ProjectsPage/CardComponent.vue'
 
 export default {
   name:'ProjectsOverview',
   components: {
-    Slider, 
+    // Slider, 
     Card
   },
   data() {
@@ -95,8 +95,8 @@ export default {
     }
   },
   methods: {
-    serchProjectTitle(){
-      // e.preventDefault()
+    serchProjectTitle(e){
+      e.preventDefault()
       const keywords = this.searchInput.trim()
       if (!keywords) {                 
         return alert('您沒有輸入訊息')
@@ -114,23 +114,19 @@ export default {
     incCardNumber() {
       return this.showCards += 6
     },
-    valueSlider(value) {
-      var x = value[0];
-      var y = value[1];
-      this.cards = this.it.filter((e)=> x < e.price && e.price < y)
-    },
-    sortDate() {
-       this.cards.sort((a, b) => (a.title.length * 2)-(b.title.length * 4))
-       return this.sortButton = '專案名稱'
-    },
-    sortPrice() {
-       this.cards.sort((a, b) => a.quote-b.quote)
-       return this.sortButton = '報價'
-    },
-    sortTrend() {
-       this.cards.sort((a, b) => a.type.length-b.type.length)
-       return this.sortButton = 'Tendencia'
-    },
+    // valueSlider(value) {
+    //   var x = value[0];
+    //   var y = value[1];
+    //   this.cards = this.it.filter((e)=> x < e.price && e.price < y)
+    // },
+    // sortDate() {
+    //    this.cards.sort((a, b) => (a.title.length * 2)-(b.title.length * 4))
+    //    return this.sortButton = '專案名稱'
+    // },
+    // sortPrice() {
+    //    this.cards.sort((a, b) => a.quote-b.quote)
+    //    return this.sortButton = '報價'
+    // },  
     sortI(name){
       this.findKeyCards =[]
       this.cards = this.it.filter( e => e.type.match(name))    
