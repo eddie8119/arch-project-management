@@ -1,5 +1,5 @@
 module.exports = {
   publicPath: process.env.NODE_ENV === "production" 
-  ? '/arch-project-management/'
+  ? '/forum-front-end-vue/'
   : '/'
 }
